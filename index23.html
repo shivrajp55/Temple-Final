@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Single-Page Website</title>
+    <style>
+        /* Your existing styles... */
+
+        /* Additional styles for enhanced layout */
+        section {
+            padding: 50px;
+        }
+
+        .info-box {
+            background: #f8f8f8;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1em;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            background: #00bcd4;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .button:hover {
+            background: #0097a7;
+        }
+
+        .icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .testimonial {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .testimonial img {
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+
+        .testimonial-content {
+            max-width: 600px;
+        }
+
+        /* Add any additional styles or animations as needed */
+    </style>
+</head>
+<body>
+    <div class="menu-toggle">&#9776;</div>
+    <nav>
+        <ul>
+            <li><a href="#section1">About Us</a></li>
+            <li><a href="#section2">Services</a></li>
+            <li><a href="#section3">Testimonials</a></li>
+            <li><a href="#section4">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="section1">
+        <h2>About Us</h2>
+        <div class="info-box">
+            <p>Content about your organization...</p>
+            <a href="#" class="button">Learn More</a>
+        </div>
+    </section>
+
+    <section id="section2">
+        <h2>Services</h2>
+        <div class="info-box">
+            <p>Details about the services you offer...</p>
+            <a href="#" class="button">Get Started</a>
+        </div>
+    </section>
+
+    <section id="section3">
+        <h2>Testimonials</h2>
+        <div class="testimonial">
+            <img src="testimonial1.jpg" alt="Client 1">
+            <div class="testimonial-content">
+                <p>"Amazing service and results!"</p>
+                <p><strong>- Client Name</strong></p>
+            </div>
+        </div>
+        <div class="testimonial">
+            <img src="testimonial2.jpg" alt="Client 2">
+            <div class="testimonial-content">
+                <p>"Couldn't be happier with the outcome."</p>
+                <p><strong>- Client Name</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <section id="section4">
+        <h2>Contact</h2>
+        <div class="info-box">
+            <p>Contact information and form...</p>
+        </div>
+    </section>
+
+    <script>
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('nav ul').classList.toggle('show');
+        });
+        
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+
+                if (window.innerWidth <= 768) {
+                    document.querySelector('nav ul').classList.remove('show');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

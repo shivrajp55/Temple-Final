@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <title>Filterable Temple Gallery</title>
+    <style>
+        .temple {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.temple img {
+    width: 200px;
+    height: 150px;
+}
+
+.temple h3 {
+    margin-top: 10px;
+}
+
+    </style>
+</head>
+<body>
+    <div id="filter-buttons">
+        <button class="filter-btn" data-filter="nearest">Nearest Temples</button>
+        <button class="filter-btn" data-filter="farthest">Farthest Temples</button>
+        <button class="filter-btn" data-filter="all">All Temples</button>
+    </div>
+
+    <div id="image-gallery">
+        <div class="temple" data-distance="50" data-latitude="28.6139" data-longitude="77.2090">
+            <img src="tanjavurtemple.jpg" alt="Temple 1">
+            <h3>Temple Name 1</h3>
+        </div>
+        
+
+        <div class="temple" data-distance="30" data-latitude="19.0760" data-longitude="72.8777">
+            <img src="mahadeva-malai-temple.jpg" alt="Temple 2">
+            <h3>Mumbai Temple</h3>
+        </div>
+
+        <div class="temple" data-distance="60" data-latitude="31.1471" data-longitude="75.3412">
+            <img src="download (1).jpeg" alt="Temple 3">
+            <h3>Mumbai Temple</h3>
+        </div>
+
+        
+
+        <!-- Add more temple elements with appropriate data attributes, images, and names -->
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const temples = document.querySelectorAll('.temple');
+
+    function calculateDistance(userLat, userLng, templeLat, templeLng) {
+        const earthRadius = 6371; // Radius of the Earth in kilometers
+        const dLat = (templeLat - userLat) * Math.PI / 180;
+        const dLng = (templeLng - userLng) * Math.PI / 180;
+        const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                  Math.cos(userLat * Math.PI / 180) * Math.cos(templeLat * Math.PI / 180) *
+                  Math.sin(dLng / 2) * Math.sin(dLng / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return earthRadius * c; // Distance in kilometers
+    }
+
+    function updateGallery(filter) {
+        temples.forEach(temple => {
+            const distance = parseFloat(temple.dataset.distance);
+
+            temple.style.display = 'none';
+
+            if (filter === 'all' || temple.classList.contains(filter)) {
+                temple.style.display = 'inline-block';
+            }
+
+            if (filter === 'nearest' && distance < 50) { // Adjust the threshold as needed
+                temple.style.display = 'inline-block';
+            }
+
+            if (filter === 'farthest' && distance > 100) { // Adjust the threshold as needed
+                temple.style.display = 'inline-block';
+            }
+        });
+    }
+
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const filter = this.dataset.filter;
+            updateGallery(filter);
+        });
+    });
+});
+
+    </script>
+</body>
+</html>

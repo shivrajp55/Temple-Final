@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Pannellum Panorama</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const panoramaElement = document.getElementById('panorama');
+    
+    const viewer = document.createElement('div');
+    viewer.classList.add('pannellum-viewer');
+    panoramaElement.appendChild(viewer);
+
+    const image = new Image();
+    image.src = 'bankebiharitemple.jpeg';
+    
+    image.onload = function() {
+        const canvas = document.createElement('canvas');
+        canvas.width = this.width;
+        canvas.height = this.height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(this, 0, 0);
+
+        viewer.style.backgroundImage = `url(${canvas.toDataURL()})`;
+        
+};
+});
+document.getElementById('pan-up').addEventListener('click', function(e) {
+    viewer.setPitch(viewer.getPitch() + 10);
+});
+document.getElementById('pan-down').addEventListener('click', function(e) {
+    viewer.setPitch(viewer.getPitch() - 10);
+});
+document.getElementById('pan-left').addEventListener('click', function(e) {
+    viewer.setYaw(viewer.getYaw() - 10);
+});
+document.getElementById('pan-right').addEventListener('click', function(e) {
+    viewer.setYaw(viewer.getYaw() + 10);
+});
+document.getElementById('zoom-in').addEventListener('click', function(e) {
+    viewer.setHfov(viewer.getHfov() - 10);
+});
+document.getElementById('zoom-out').addEventListener('click', function(e) {
+    viewer.setHfov(viewer.getHfov() + 10);
+});
+document.getElementById('fullscreen').addEventListener('click', function(e) {
+    viewer.toggleFullscreen();
+});
+    </script>
+</head>
+<body>
+    <div id ="temple2">
+        <h1>360 view of golden temple </h1>
+    
+     
+          <div id="panorama">
+    
+           <div id="controls">
+            <div class="ctrl" id="pan-up">&#9650;</div>
+          <div class="ctrl" id="pan-down">&#9660;</div>
+          <div class="ctrl" id="pan-left">&#9664;</div>
+          <div class="ctrl" id="pan-right">&#9654;</div>
+          <div class="ctrl" id="zoom-in">&plus;</div>
+          <div class="ctrl" id="zoom-out">&minus;</div>
+          <div class="ctrl" id="fullscreen">&#x2922;</div>
+         </div>
+        </div>
+</div>
+   
+   
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>360° Image Viewer</title>
+    
+    
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.viewer-container {
+    position: relative;
+}
+
+.viewer-image {
+    max-width: 100%;
+}
+
+.viewer-controls {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+}
+
+.control-button {
+    font-size: 24px;
+    padding: 10px 20px;
+    margin:0 10px;
+}
+.ctrl {
+        padding: 8px 5px;
+        width: 30px;
+        text-align: center;
+        background: rgba(200, 200, 200, 0.8);
+        display: inline-block;
+        cursor: pointer;
+    }
+    .ctrl:hover {
+        background: rgba(200, 200, 200, 1);
+    }
+
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const image = document.querySelector('.viewer-image');
+    const leftButton = document.getElementById('left');
+    const rightButton = document.getElementById('right');
+
+    let currentFrame = 0;
+
+    leftButton.addEventListener('click', function() {
+        currentFrame = (currentFrame - 1 + 360) % 360;
+        updateImageSource();
+    });
+
+    rightButton.addEventListener('click', function() {
+        currentFrame = (currentFrame + 1) % 360;
+        updateImageSource();
+    });
+
+    function updateImageSource() {
+        image.src = `frames/frame_${currentFrame.toString().padStart(3, '0')}.jpeg`;
+}
+});
+document.getElementById('pan-up').addEventListener('click', function(e) {
+    viewer.setPitch(viewer.getPitch() + 10);
+});
+document.getElementById('pan-down').addEventListener('click', function(e) {
+    viewer.setPitch(viewer.getPitch() - 10);
+});
+document.getElementById('pan-left').addEventListener('click', function(e) {
+    viewer.setYaw(viewer.getYaw() - 10);
+});
+document.getElementById('pan-right').addEventListener('click', function(e) {
+    viewer.setYaw(viewer.getYaw() + 10);
+});
+document.getElementById('zoom-in').addEventListener('click', function(e) {
+    viewer.setHfov(viewer.getHfov() - 10);
+});
+document.getElementById('zoom-out').addEventListener('click', function(e) {
+    viewer.setHfov(viewer.getHfov() + 10);
+});
+document.getElementById('fullscreen').addEventListener('click', function(e) {
+    viewer.toggleFullscreen();
+});
+    </script>
+</head>
+<body>
+    <div class="viewer-container">
+        <img src="bankebiharitemple.jpeg" alt="360° Image" class="viewer-image">
+        <div class="viewer-controls">
+            <div class="ctrl" id="pan-up">&#9650;</div>
+        <div class="ctrl" id="pan-down">&#9660;</div>
+        <div class="ctrl" id="pan-left">&#9664;</div>
+        <div class="ctrl" id="pan-right">&#9654;</div>
+        <div class="ctrl" id="zoom-in">&plus;</div>
+        <div class="ctrl" id="zoom-out">&minus;</div>
+        <div class="ctrl" id="fullscreen">&#x2922;</div>
+        </div>
+    </div>
+    
+</body>
+</html>
